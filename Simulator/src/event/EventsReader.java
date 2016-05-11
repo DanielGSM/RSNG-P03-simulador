@@ -1,7 +1,10 @@
 package event;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class EventsReader {
 
-    private Scanner eventsFile;
+    private BufferedReader eventsFile;
 
     /**
      * Constructor
@@ -21,7 +24,7 @@ public class EventsReader {
      */
     public EventsReader(String eventsFile) {
         try {
-            this.eventsFile = new Scanner(new File(eventsFile));
+            this.eventsFile = new BufferedReader(new FileReader(eventsFile));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventsReader.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error; no se encuentra el fichero de eventos");
@@ -32,7 +35,7 @@ public class EventsReader {
      * Reads the next arrival event and returns it
      * @return the next arrival event
      */
-    public String nextEvent() {
-        return eventsFile.nextLine();
+    public String nextEvent() throws IOException {
+        return eventsFile.readLine();
     }
 }
