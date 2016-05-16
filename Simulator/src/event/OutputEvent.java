@@ -4,7 +4,7 @@ package event;
  *
  * @author Daniel
  */
-public class OutputEvent extends Event {
+public class OutputEvent extends ArrivalEvent {
 
     /**
      * Indicates if the petiton has been served or rejected
@@ -49,8 +49,8 @@ public class OutputEvent extends Event {
 
     @Override
     public String toString() {
-        return "Output"
-                + super.toString()
+        return "Output "
+                + super.toString().substring(super.toString().indexOf(' ') + 1)
                 + "served: " + this.served
                 + "\nserverTime: " + this.serverTime
                 + "\noutTime: " + this.outTime

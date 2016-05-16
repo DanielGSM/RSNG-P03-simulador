@@ -1,11 +1,9 @@
 package event;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +31,8 @@ public class EventsReader {
     }
 
     /**
-     * Reads the next arrival event and returns it
+     * Reads the next arrival event and returns it.
+     * Automatically closes the file when it reachs the end
      * @return the next arrival event
      */
     public ArrivalEvent nextArrivalEvent() throws IOException {

@@ -27,7 +27,7 @@ public class EventsWriter {
         try {
             String line = outputEvent.getArrivalTime()
                     + " " + outputEvent.getId()
-                    + " " + outputEvent.getDuration()
+                    + " " + outputEvent.getServiceTime()
                     + " " + outputEvent.isServed();
             if (outputEvent.isServed()) {
                 line += " " + outputEvent.getServerTime()
