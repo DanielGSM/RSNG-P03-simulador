@@ -1,9 +1,10 @@
 package simulator;
 
 import event.ArrivalEvent;
+import event.OutputEvent;
 import event.EventsReader;
 import event.EventsWriter;
-import event.OutputEvent;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
