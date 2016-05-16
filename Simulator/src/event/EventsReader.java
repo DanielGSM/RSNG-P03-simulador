@@ -17,15 +17,15 @@ import java.util.logging.Logger;
  */
 public class EventsReader {
 
-    private BufferedReader eventsFile;
+    private BufferedReader inputEventsFile;
 
     /**
      * Constructor
      * @param pathname the pathname of the file to read the events from
      */
-    public EventsReader(String eventsFile) {
+    public EventsReader(String inputFile) {
         try {
-            this.eventsFile = new BufferedReader(new FileReader(eventsFile));
+            this.inputEventsFile = new BufferedReader(new FileReader(inputFile));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventsReader.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error; no se encuentra el fichero de eventos");
@@ -37,8 +37,9 @@ public class EventsReader {
      * @return the next arrival event
      */
     public ArrivalEvent nextArrivalEvent() throws IOException {
-        String line = eventsFile.readLine();
+        String line = this.inputEventsFile.readLine();
         if (line == null) {
+            this.inputEventsFile.close();
             return null;
         } else {
             StringTokenizer tokens = new StringTokenizer(line);

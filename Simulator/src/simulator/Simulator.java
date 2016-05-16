@@ -2,6 +2,8 @@ package simulator;
 
 import event.ArrivalEvent;
 import event.EventsReader;
+import event.EventsWriter;
+import event.OutputEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -30,7 +32,21 @@ public class Simulator {
                 + File.separator + "rsng06"
                 + File.separator + "Desktop"
                 + File.separator + "entradas.txt");
-
+        
+        //we prepare the queues
+        EventsWriter prueba = new EventsWriter(
+                
+                File.separator + "opt3"
+                + File.separator + "rsng"
+                + File.separator + "rsng06"
+                + File.separator + "Desktop"
+                + File.separator + "salidas.txt");
+        OutputEvent e = new OutputEvent(1, (float) 2.3,  (float)3.4, true,  (float)5.6,  (float)8.7);
+        System.out.println(e.toString());
+        prueba.writeEvent(e);
+        prueba.closeWriter();
+        
+        
         //we read the next events while there are still some left
         try {
             ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();

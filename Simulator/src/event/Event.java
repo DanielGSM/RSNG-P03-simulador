@@ -13,15 +13,15 @@ public abstract class Event {
     /**
      * The time at which the event happens
      */
-    private float time;
+    private float arrivalTime;
     /**
      * The duration of the event
      */
     private float duration;
 
-    public Event(int eventID, float time, float duration) {
+    public Event(int eventID, float arrivalTime, float duration) {
         this.id = eventID;
-        this.time = time;
+        this.arrivalTime = arrivalTime;
         this.duration = duration;
     }
 
@@ -29,8 +29,8 @@ public abstract class Event {
         return this.id;
     }
 
-    public float getTime() {
-        return this.time;
+    public float getArrivalTime() {
+        return this.arrivalTime;
     }
 
     public float getDuration() {
@@ -41,8 +41,8 @@ public abstract class Event {
     public String toString() {
         return "Event\n"
                 + "id: " + this.id
-                + "\ntime: " + this.time
+                + "\ntime: " + this.arrivalTime
                 + "\nduration: " + this.duration
-                + "\n\n";
+                + "\n";
     }
 }

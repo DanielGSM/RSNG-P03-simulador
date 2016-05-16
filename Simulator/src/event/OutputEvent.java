@@ -2,7 +2,7 @@ package event;
 
 /**
  *
- * @author rsng06
+ * @author Daniel
  */
 public class OutputEvent extends Event {
 
@@ -19,8 +19,8 @@ public class OutputEvent extends Event {
      */
     float outTime;
 
-    public OutputEvent(int eventID, float time, float duration, boolean served, float serverTime, float outTime) {
-        super(eventID, time, duration);
+    public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, float serverTime, float outTime) {
+        super(eventID, arrivalTime, serviceTime);
 
         this.served = served;
         this.serverTime = serverTime;
@@ -50,6 +50,11 @@ public class OutputEvent extends Event {
     @Override
     public String toString() {
         return "Output"
-                + super.toString();
+                + super.toString()
+                + "served: " + this.served
+                + "\nserverTime: " + this.serverTime
+                + "\noutTime: " + this.outTime
+                + "\n";
+
     }
 }

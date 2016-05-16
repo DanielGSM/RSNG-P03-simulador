@@ -6,8 +6,8 @@ package event;
  */
 public class ArrivalEvent extends Event {
 
-    public ArrivalEvent(int eventID, float time, float duration) {
-        super(eventID, time, duration);
+    public ArrivalEvent(int eventID, float arrivalTime, float duration) {
+        super(eventID, arrivalTime, duration);
     }
 
     @Override
