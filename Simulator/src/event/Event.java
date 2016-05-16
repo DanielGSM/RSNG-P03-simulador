@@ -36,4 +36,13 @@ public abstract class Event {
     public float getDuration() {
         return this.duration;
     }
+
+    @Override
+    public String toString() {
+        return "Event\n"
+                + "id: " + this.id
+                + "\ntime: " + this.time
+                + "\nduration: " + this.duration
+                + "\n\n";
+    }
 }

@@ -46,4 +46,10 @@ public class OutputEvent extends Event {
     public void setOutTime(float outTime) {
         this.outTime = outTime;
     }
+
+    @Override
+    public String toString() {
+        return "Output"
+                + super.toString();
+    }
 }

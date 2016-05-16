@@ -1,7 +1,11 @@
 package simulator;
 
+import event.ArrivalEvent;
 import event.EventsReader;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,12 +23,14 @@ public class Simulator {
                 + File.separator + "rsng06"
                 + File.separator + "Desktop"
                 + File.separator + "entradas.txt");
-
         try {
-            while (true) {
-                System.out.println(eventsReader.nextEvent());
-            }
-        } catch (Exception e) {
-        }
+            ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
+            while (lastArrivalEvent != null) {
+                System.out.println(lastArrivalEvent);
+                lastArrivalEvent = eventsReader.nextArrivalEvent();
+            }//try
+        } catch (IOException ex) {
+            Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
+        }//catch
     }//Simulator.main()
 }//Simulator
