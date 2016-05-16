@@ -32,21 +32,15 @@ public class Simulator {
                 + File.separator + "rsng06"
                 + File.separator + "Desktop"
                 + File.separator + "entradas.txt");
-        
-        //we prepare the queues
-        EventsWriter prueba = new EventsWriter(
-                
+
+        //the events writer is prepared
+        EventsWriter eventsWriter = new EventsWriter(
                 File.separator + "opt3"
                 + File.separator + "rsng"
                 + File.separator + "rsng06"
                 + File.separator + "Desktop"
                 + File.separator + "salidas.txt");
-        OutputEvent e = new OutputEvent(1, (float) 2.3,  (float)3.4, true,  (float)5.6,  (float)8.7);
-        System.out.println(e.toString());
-        prueba.writeEvent(e);
-        prueba.closeWriter();
-        
-        
+
         //we read the next events while there are still some left
         try {
             ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
@@ -57,5 +51,8 @@ public class Simulator {
         } catch (IOException ex) {
             Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
         }//catch
+
+        //we close things
+        eventsWriter.closeWriter();
     }//Simulator.main()
 }//Simulator
