@@ -15,12 +15,20 @@ public class OutputEvent extends ArrivalEvent {
      */
     float serverTime;
     /**
-     * Absolute time in which the petition ended
+     * Absolute time in which the petition ended (was finished serving)
      */
     float outTime;
 
     public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, float serverTime, float outTime) {
         super(eventID, arrivalTime, serviceTime);
+
+        this.served = served;
+        this.serverTime = serverTime;
+        this.outTime = outTime;
+    }
+
+    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, float serverTime, float outTime) {
+        super(arrivalEvent);
 
         this.served = served;
         this.serverTime = serverTime;

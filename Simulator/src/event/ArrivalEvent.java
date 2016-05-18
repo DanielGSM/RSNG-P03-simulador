@@ -20,6 +20,12 @@ public class ArrivalEvent extends Event {
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
     }
+    
+    public ArrivalEvent(ArrivalEvent arrivalEvent) {
+        super(arrivalEvent.getId());
+        this.arrivalTime = arrivalEvent.getArrivalTime();
+        this.serviceTime = arrivalEvent.getServiceTime();
+    }
 
     public float getArrivalTime() {
         return arrivalTime;

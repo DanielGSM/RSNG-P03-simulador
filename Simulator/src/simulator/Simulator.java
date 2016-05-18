@@ -20,6 +20,9 @@ public class Simulator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //The inner clock to keep track of the simulation of the system
+        float clock = 0;
+        
         //we read the arguments
         int numThreads = Integer.parseInt(args[0]);
         int queueSize = Integer.parseInt(args[1]);
