@@ -10,14 +10,53 @@ import event.OutputEvent;
  */
 public class Thread {
 
-    protected OutputEvent petition;
+    private OutputEvent petition;
 
     /**
-     * Constructor, simulates a petition entering in the thread
-     * @param petition A petition to serve in form of a OutputEvent.
+     * Constructor; creates an empty thread
+     */
+    public Thread() {
+        this.petition = null;
+    }
+
+    /**
+     * Indicates if a thread is idle (is not serving a petition, is empty)
+     * @return True if the thread is idle. False if it's serving a petition
+     */
+    public boolean isIdle() {
+        return this.petition == null ? true : false;
+    }
+
+    /**
+     * Simulates a petition entering in the thread
+     * @param petition A petition to serve in form of a ArrivalEvent.
      * @param serverTime The absolute time in which the petition enters in the system/thread
      */
-    public Thread(ArrivalEvent petition, float serverTime) {
-        this.petition = new OutputEvent(petition, true, serverTime, serverTime + petition.getServiceTime());
+    public void asignPetition(ArrivalEvent petition, float serverTime) throws Exception {
+        if (!this.isIdle()) {
+            throw new Exception("Error; can't assign a petition to a busy thread");
+        } else {
+            this.petition = new OutputEvent(petition, true, serverTime, serverTime + petition.getServiceTime());
+        }
+    }
+
+    /**
+     * Finishes serving a petition and returns it in form of an OutputEvent
+     * @return The OutputEvent that represents the served petition
+     */
+    public OutputEvent finishServingPetition() {
+        OutputEvent temp = this.petition;
+        this.petition = null;
+
+        return temp;
+    }
+    
+    /**
+     * Returns the next absolute time where the thread will be idle; that is,
+     * the time in which the current petition finishes being served.
+     * @return The time in which the current petition finishes being served.
+     */
+    public float nextIdleTime() {
+        return this.petition.getOutTime();
     }
 }

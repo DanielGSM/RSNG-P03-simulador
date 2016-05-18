@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.Server;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Simulator {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //The inner clock to keep track of the simulation of the system
         float clock = 0;
         
@@ -44,7 +45,9 @@ public class Simulator {
                 + File.separator + "rsng06"
                 + File.separator + "Desktop"
                 + File.separator + "salidas.txt");
-
+        
+        Server server = new Server(numThreads, queueSize);
+        
         //we read the next events while there are still some left
         try {
             ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
