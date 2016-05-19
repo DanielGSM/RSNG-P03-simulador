@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 /**
  * Writes output events to an external file
+ *
  * @author Daniel
  */
 public class EventsWriter {

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  * Reads arrival events from an external file
- * 
+ *
  * @author Daniel
  */
 public class EventsReader {
@@ -19,7 +19,8 @@ public class EventsReader {
 
     /**
      * Constructor
-     * @param pathname the pathname of the file to read the events from
+     *
+     * @param inputFile the pathname of the file to read the events from
      */
     public EventsReader(String inputFile) {
         try {
@@ -31,9 +32,11 @@ public class EventsReader {
     }
 
     /**
-     * Reads the next arrival event and returns it.
-     * Automatically closes the file when it reachs the end
+     * Reads the next arrival event and returns it. Automatically closes the
+     * file when it reachs the end
+     *
      * @return the next arrival event
+     * @throws java.io.IOException
      */
     public ArrivalEvent nextArrivalEvent() throws IOException {
         String line = this.inputEventsFile.readLine();

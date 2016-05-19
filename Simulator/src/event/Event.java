@@ -9,7 +9,7 @@ public abstract class Event {
     /**
      * The id of the event
      */
-    private int id;
+    private final int id;
 
     public Event(int eventID) {
         this.id = eventID;

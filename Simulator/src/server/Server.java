@@ -4,7 +4,7 @@ import thread.ThreadsList;
 
 /**
  * A server with threads
- * 
+ *
  * @author Daniel
  */
 public class Server {
@@ -12,16 +12,19 @@ public class Server {
     /**
      * The number of threads in the server
      */
-    private int numThreads;
+    private final int numThreads;
     /**
      * the size of the server's queue
      */
-    private int queueSize;
+    private final int queueSize;
     /**
      * The server's threads
      */
-    private ThreadsList threads;
-    private ServerQueue queue;
+    private final ThreadsList threads;
+    /**
+     * The server's queue
+     */
+    private final ServerQueue queue;
 
     public Server(int numThreads, int queueSize) throws Exception {
         this.numThreads = numThreads;

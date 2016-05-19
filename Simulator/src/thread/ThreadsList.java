@@ -17,7 +17,9 @@ public class ThreadsList {
 
     /**
      * Constructor; initializes the threads of the class
+     *
      * @param numThreads The number of Threads to create
+     * @throws java.lang.Exception
      */
     public ThreadsList(int numThreads) throws Exception {
         if (numThreads < 1) {
@@ -35,7 +37,7 @@ public class ThreadsList {
     /**
      * Between all the petitions being serverd, the absolute time of the output
      * time of the first petition which will finish being served.
-     * 
+     *
      * @return ^That thing from above.
      */
     public float nextOutTime() {
@@ -52,6 +54,7 @@ public class ThreadsList {
 
     /**
      * The number of threads.
+     *
      * @return The number of threads.
      */
     public int getNumThreads() {

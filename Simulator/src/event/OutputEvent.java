@@ -9,15 +9,15 @@ public class OutputEvent extends ArrivalEvent {
     /**
      * Indicates if the petiton has been served or rejected
      */
-    boolean served;
+    private final boolean served;
     /**
      * Absolute time in which the petition was asigned to a thread
      */
-    float serverTime;
+    private final float serverTime;
     /**
      * Absolute time in which the petition ended (was finished serving)
      */
-    float outTime;
+    private final float outTime;
 
     public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, float serverTime, float outTime) {
         super(eventID, arrivalTime, serviceTime);
@@ -43,16 +43,8 @@ public class OutputEvent extends ArrivalEvent {
         return serverTime;
     }
 
-    public void setServerTime(float serverTime) {
-        this.serverTime = serverTime;
-    }
-
     public float getOutTime() {
         return outTime;
-    }
-
-    public void setOutTime(float outTime) {
-        this.outTime = outTime;
     }
 
     @Override
