@@ -20,12 +20,12 @@ public class Thread {
     }
 
     /**
-     * Indicates if a thread is idle (is not serving a petition, is empty)
+     * Indicates if a thread is busy (is serving a petition, not idle)
      *
-     * @return True if the thread is idle. False if it's serving a petition
+     * @return True if the thread is busy. False if it's idle.
      */
-    public boolean isIdle() {
-        return this.petition == null;
+    public boolean isBusy() {
+        return this.petition != null;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Thread {
      * @throws java.lang.Exception
      */
     public void asignPetition(ArrivalEvent petition, float serverTime) throws Exception {
-        if (!this.isIdle()) {
+        if (!this.isBusy()) {
             throw new Exception("Error; can't assign a petition to a busy thread");
         } else {
             this.petition = new OutputEvent(petition, true, serverTime, serverTime + petition.getServiceTime());

@@ -18,14 +18,26 @@ public class ServerQueue {
         ServerQueue.SIZE = size;
     }
 
-    public boolean addEvent(ArrivalEvent ev) {
-        if (list.size() <= SIZE) {
+    public void addEvent(ArrivalEvent ev) throws Exception {
+        if (!this.isFull()) {
             Float key = ev.getArrivalTime();
             list.put(key, ev);
-            return true;
         } else {
-            return false;
+            throw new Exception("Error: la cola está llena");
         }
+    }
+
+    public boolean isFull() {
+        return list.size() == SIZE;
+    }
+
+    /**
+     * The number of event in the queue
+     *
+     * @return The number of events in the queue.
+     */
+    public int numberEvents() {
+        return list.size();
     }
 
     public void delEvent(ArrivalEvent ev) {
