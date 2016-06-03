@@ -1,6 +1,8 @@
 package server;
 
 import event.ArrivalEvent;
+import event.EventsWriter;
+import event.OutputEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import thread.ThreadsList;
@@ -33,19 +35,28 @@ public class Server {
      */
     private final ServerQueue queue;
 
+    private float clock;
+
+    EventsWriter eventsWriter;
+
     /**
      *
      * @param numThreads The number of threads in the server.
      * @param queueSize The size of the waiting queue.
+     * @param eventsWriter The events writer
      * @throws Exception Throws an exception when the number of threads is
      * lesser than one.
      */
-    public Server(int numThreads, int queueSize) throws Exception {
+    public Server(int numThreads, int queueSize, EventsWriter eventsWriter) throws Exception {
         this.numThreads = numThreads;
         this.queueSize = queueSize;
 
         this.threads = new ThreadsList(numThreads);
         this.queue = new ServerQueue(queueSize);
+
+        this.eventsWriter = eventsWriter;
+
+        this.clock = 0;
     }
 
     /**
@@ -55,24 +66,19 @@ public class Server {
      * queue is empty and there are
      *
      * @param arrivalEvent
+     * @throws java.lang.Exception
      */
-    public void petitionArrival(ArrivalEvent arrivalEvent) {
-        if (this.threads.busyThreads() < this.numThreads) {
-            try {
-                this.threads.processPetition(arrivalEvent, arrivalEvent.getArrivalTime());
-            } catch (Exception ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public void petitionArrival(ArrivalEvent arrivalEvent) throws Exception {
+        if (this.queue.isFull()) {
+            //the petition is denied
+            OutputEvent outputEvent = new OutputEvent(arrivalEvent, false, null, null);
+        } else if ((this.queue.eventsInQueue() > 0) || (this.threads.busyThreads() == this.numThreads)) {
+            //the petition is enqueued
+            this.enqueuePetition(arrivalEvent);
         } else {
-            assert this.threads.busyThreads() == this.numThreads;
-
-            if (!this.queue.isFull()) {
-                try {
-                    this.enqueuePetition(arrivalEvent);
-                } catch (Exception ex) {
-                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            //the petition enthers directly in a thread
+            assert !this.queue.isFull() && this.queue.eventsInQueue() == 0 && this.threads.busyThreads() < this.numThreads;
+            this.threads.processPetition(arrivalEvent, arrivalEvent.getArrivalTime());
         }
     }
 
@@ -90,6 +96,37 @@ public class Server {
             this.queue.addEvent(arrivalEvent);
         } catch (Exception ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * The number of petitions in the server (queue+threads)
+     *
+     * @return
+     */
+    public int petitionsInServer() {
+        return this.queue.eventsInQueue() + this.threads.busyThreads();
+    }
+
+    /**
+     * Between all the petitions being serverd, the absolute time of the output
+     * time of the first petition which will finish being served.
+     *
+     * @return
+     */
+    public float nextOutTime() {
+        return this.threads.nextOutTime();
+    }
+
+    /**
+     * Processes the internal petitions until reaching the time.
+     */
+    public void advanceClock(float time) {
+        if (this.clock < time) {
+            //TODO: procesar peticiones
+            
+            
+            this.clock = time;
         }
     }
 }

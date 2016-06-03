@@ -13,21 +13,28 @@ public class OutputEvent extends ArrivalEvent {
     /**
      * Absolute time in which the petition was asigned to a thread
      */
-    private final float serverTime;
+    private final Float serverTime;
     /**
      * Absolute time in which the petition ended (was finished serving)
      */
-    private final float outTime;
+    private final Float outTime;
 
-    public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, float serverTime, float outTime) {
+    public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, Float serverTime, Float outTime) {
         super(eventID, arrivalTime, serviceTime);
+
+        //served petitions must include the serverTime and outTime, petitions rejected not
+        if (served) {
+            assert serverTime != null && outTime != null;
+        } else {
+            assert serverTime == null && outTime == null;
+        }
 
         this.served = served;
         this.serverTime = serverTime;
         this.outTime = outTime;
     }
 
-    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, float serverTime, float outTime) {
+    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, Float serverTime, Float outTime) {
         super(arrivalEvent);
 
         this.served = served;

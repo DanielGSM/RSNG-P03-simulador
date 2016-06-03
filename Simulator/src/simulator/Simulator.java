@@ -47,18 +47,16 @@ public class Simulator {
                 + File.separator + "Desktop"
                 + File.separator + "salidas.txt");
 
-        Server server = new Server(numThreads, queueSize);
+        Server server = new Server(numThreads, queueSize, eventsWriter);
 
         //we read the next events while there are still some left
-        try {
-            ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
-            while (lastArrivalEvent != null) {
-                System.out.println(lastArrivalEvent);
-                lastArrivalEvent = eventsReader.nextArrivalEvent();
-            }//try
-        } catch (IOException ex) {
-            Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
-        }//catch
+        ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
+        while (lastArrivalEvent != null || server.petitionsInServer() > 0) {
+            server.advanceClock(lastArrivalEvent.getArrivalTime());
+            
+            server.petitionArrival(lastArrivalEvent);
+            lastArrivalEvent = eventsReader.nextArrivalEvent();
+        }
 
         //we close things
         eventsWriter.closeWriter();

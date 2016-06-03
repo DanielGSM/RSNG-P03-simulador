@@ -36,7 +36,7 @@ public class ServerQueue {
      *
      * @return The number of events in the queue.
      */
-    public int numberEvents() {
+    public int eventsInQueue() {
         return list.size();
     }
 
