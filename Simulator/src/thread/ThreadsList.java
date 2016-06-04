@@ -75,17 +75,17 @@ public class ThreadsList {
      * Assigns a petition to a thread.
      *
      * @param arrivalEvent The petition to serve.
-     * @param serverTime the absolute time in which the petition enters at the
+     * @param threadTime the absolute time in which the petition enters at the
      * system.
      * @throws Exception Fails if are the threads are busy.
      */
-    public void AssignPetition(ArrivalEvent arrivalEvent, float serverTime) throws Exception {
+    public void AssignPetition(ArrivalEvent arrivalEvent, float threadTime) throws Exception {
         if (this.busyThreads() == this.numThreads) {
             throw new Exception("Error: all the threads are busy");
         } else {
             for (int i = 0; i < this.numThreads; i++) {
                 if (!this.threads[i].isBusy()) {
-                    this.threads[i].asignPetition(arrivalEvent, serverTime);
+                    this.threads[i].asignPetition(arrivalEvent, threadTime);
                 }
             }
         }

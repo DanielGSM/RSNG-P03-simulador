@@ -13,48 +13,48 @@ public class OutputEvent extends ArrivalEvent {
     /**
      * Absolute time in which the petition was asigned to a thread
      */
-    private final Float serverTime;
+    private final Float threadTime;
     /**
      * Absolute time in which the petition ended (was finished serving)
      */
     private final Float outTime;
 
     /**
-     * Served petitions must have valid values for serverTime and outTime.
+     * Served petitions must have valid values for threadTime and outTime.
      * Rejected petitions must have those values at null.
      */
-    public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, Float serverTime, Float outTime) {
+    public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, Float threadTime, Float outTime) {
         super(eventID, arrivalTime, serviceTime);
 
         this.served = served;
 
         if (this.served) {
-            this.serverTime = serverTime;
+            this.threadTime = threadTime;
             this.outTime = outTime;
         } else {
-            this.serverTime = null;
+            this.threadTime = null;
             this.outTime = null;
         }
 
-        assert (this.served && this.serverTime != null && this.outTime != null)
-                || (!this.served && this.serverTime == null && this.outTime == null);
+        assert (this.served && this.threadTime != null && this.outTime != null)
+                || (!this.served && this.threadTime == null && this.outTime == null);
 
     }
 
     /**
-     * Served petitions must have valid values for serverTime and outTime.
+     * Served petitions must have valid values for threadTime and outTime.
      * Rejected petitions must have those values at null.
      */
-    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, Float serverTime, Float outTime) {
-        this(arrivalEvent.getId(), arrivalEvent.getArrivalTime(), arrivalEvent.getServiceTime(), served, serverTime, outTime);
+    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, Float threadTime, Float outTime) {
+        this(arrivalEvent.getId(), arrivalEvent.getArrivalTime(), arrivalEvent.getServiceTime(), served, threadTime, outTime);
     }
 
     public boolean isServed() {
         return served;
     }
 
-    public float getServerTime() {
-        return serverTime;
+    public float getThreadTime() {
+        return threadTime;
     }
 
     public float getOutTime() {
@@ -66,7 +66,7 @@ public class OutputEvent extends ArrivalEvent {
         return "Output "
                 + super.toString().substring(super.toString().indexOf(' ') + 1)
                 + "served: " + this.served
-                + "\nserverTime: " + this.serverTime
+                + "\nthreadTime: " + this.threadTime
                 + "\noutTime: " + this.outTime
                 + "\n";
 

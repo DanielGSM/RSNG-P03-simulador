@@ -32,15 +32,15 @@ public class Thread {
      * Simulates a petition entering in the thread
      *
      * @param petition A petition to serve in form of a ArrivalEvent.
-     * @param serverTime The absolute time in which the petition enters in the
-     * system/thread
+     * @param threadTime The absolute time in which the petition enters in the
+     * thread
      * @throws java.lang.Exception
      */
-    public void asignPetition(ArrivalEvent petition, float serverTime) throws Exception {
+    public void asignPetition(ArrivalEvent petition, float threadTime) throws Exception {
         if (!this.isBusy()) {
             throw new Exception("Error; can't assign a petition to a busy thread");
         } else {
-            this.petition = new OutputEvent(petition, true, serverTime, serverTime + petition.getServiceTime());
+            this.petition = new OutputEvent(petition, true, threadTime, threadTime + petition.getServiceTime());
         }
     }
 

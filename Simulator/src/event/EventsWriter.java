@@ -32,7 +32,7 @@ public class EventsWriter {
 
             if (outputEvent.isServed()) {
                 line += " " + "1"
-                        + " " + outputEvent.getServerTime()
+                        + " " + outputEvent.getThreadTime()
                         + " " + outputEvent.getOutTime();
             } else {
                 line += " " + "0";
