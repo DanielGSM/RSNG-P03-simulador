@@ -109,19 +109,33 @@ public class Server {
      * time of the first petition which will finish being served.
      *
      * @return
+     * @throws java.lang.Exception when there are no busy threads
      */
-    public float nextOutTime() {
+    public float nextOutTime() throws Exception {
         return this.threads.nextOutTime();
     }
 
     /**
      * Processes the internal events until reaching the given time.
+     *
      * @param time The time desired for the server to advance to.
      */
     public void advanceClock(float time) {
-        //TODO: process petitions
-        while (this.petitionsInServer() > 0 && this.nextOutTime() < time) {
-            this.threads.advance();
+        try {
+            OutputEvent out;
+            
+            //we process petitions that have to happen before the given time
+            while (this.petitionsInServer() > 0 && this.threads.busyThreads() > 0 && this.nextOutTime() <= time) {
+                out = this.threads.advance();
+                eventsWriter.writeEvent(out);
+
+                if (this.queue.eventsInQueue() > 0) {
+                    //the next petition in queue enters in a thread just after a petition finishes being served
+                    this.threads.AssignPetition(this.queue.popNextEvent(), out.getOutTime());
+                }
+            }
+        } catch (Exception ex) {
+            //should never reach this since, if there are busy threads, nextOutTime shouldn't throw an exception
         }
     }
 }
