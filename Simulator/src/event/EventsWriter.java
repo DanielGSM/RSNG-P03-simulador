@@ -28,11 +28,14 @@ public class EventsWriter {
         try {
             String line = outputEvent.getArrivalTime()
                     + " " + outputEvent.getId()
-                    + " " + outputEvent.getServiceTime()
-                    + " " + outputEvent.isServed();
+                    + " " + outputEvent.getServiceTime();
+
             if (outputEvent.isServed()) {
-                line += " " + outputEvent.getServerTime()
+                line += " " + "1"
+                        + " " + outputEvent.getServerTime()
                         + " " + outputEvent.getOutTime();
+            } else {
+                line += " " + "0";
             }
             this.outputEventsFile.write(line);
         } catch (IOException ex) {

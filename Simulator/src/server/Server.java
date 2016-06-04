@@ -35,8 +35,6 @@ public class Server {
      */
     private final ServerQueue queue;
 
-    private float clock;
-
     EventsWriter eventsWriter;
 
     /**
@@ -55,8 +53,6 @@ public class Server {
         this.queue = new ServerQueue(queueSize);
 
         this.eventsWriter = eventsWriter;
-
-        this.clock = 0;
     }
 
     /**
@@ -78,7 +74,7 @@ public class Server {
         } else {
             //the petition enthers directly in a thread
             assert !this.queue.isFull() && this.queue.eventsInQueue() == 0 && this.threads.busyThreads() < this.numThreads;
-            this.threads.processPetition(arrivalEvent, arrivalEvent.getArrivalTime());
+            this.threads.AssignPetition(arrivalEvent, arrivalEvent.getArrivalTime());
         }
     }
 
@@ -119,14 +115,13 @@ public class Server {
     }
 
     /**
-     * Processes the internal petitions until reaching the time.
+     * Processes the internal events until reaching the given time.
+     * @param time The time desired for the server to advance to.
      */
     public void advanceClock(float time) {
-        if (this.clock < time) {
-            //TODO: procesar peticiones
-            
-            
-            this.clock = time;
+        //TODO: process petitions
+        while (this.petitionsInServer() > 0 && this.nextOutTime() < time) {
+            this.threads.advance();
         }
     }
 }

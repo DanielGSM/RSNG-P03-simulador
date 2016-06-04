@@ -6,9 +6,6 @@ import event.EventsReader;
 import event.EventsWriter;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import server.Server;
 
 /**
@@ -53,9 +50,11 @@ public class Simulator {
         ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
         while (lastArrivalEvent != null || server.petitionsInServer() > 0) {
             server.advanceClock(lastArrivalEvent.getArrivalTime());
-            
-            server.petitionArrival(lastArrivalEvent);
-            lastArrivalEvent = eventsReader.nextArrivalEvent();
+            //TODO: more things here
+            if (lastArrivalEvent != null) {
+                server.petitionArrival(lastArrivalEvent);
+                lastArrivalEvent = eventsReader.nextArrivalEvent();
+            }
         }
 
         //we close things

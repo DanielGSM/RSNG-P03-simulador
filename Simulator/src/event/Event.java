@@ -1,6 +1,7 @@
 package event;
 
 /**
+ * Represents a basic event with only an identificator.
  *
  * @author Daniel
  */

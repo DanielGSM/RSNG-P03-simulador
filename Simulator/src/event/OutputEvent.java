@@ -19,27 +19,34 @@ public class OutputEvent extends ArrivalEvent {
      */
     private final Float outTime;
 
+    /**
+     * Served petitions must have valid values for serverTime and outTime.
+     * Rejected petitions must have those values at null.
+     */
     public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, Float serverTime, Float outTime) {
         super(eventID, arrivalTime, serviceTime);
 
-        //served petitions must include the serverTime and outTime, petitions rejected not
-        if (served) {
-            assert serverTime != null && outTime != null;
+        this.served = served;
+
+        if (this.served) {
+            this.serverTime = serverTime;
+            this.outTime = outTime;
         } else {
-            assert serverTime == null && outTime == null;
+            this.serverTime = null;
+            this.outTime = null;
         }
 
-        this.served = served;
-        this.serverTime = serverTime;
-        this.outTime = outTime;
+        assert (this.served && this.serverTime != null && this.outTime != null)
+                || (!this.served && this.serverTime == null && this.outTime == null);
+
     }
 
+    /**
+     * Served petitions must have valid values for serverTime and outTime.
+     * Rejected petitions must have those values at null.
+     */
     public OutputEvent(ArrivalEvent arrivalEvent, boolean served, Float serverTime, Float outTime) {
-        super(arrivalEvent);
-
-        this.served = served;
-        this.serverTime = serverTime;
-        this.outTime = outTime;
+        this(arrivalEvent.getId(), arrivalEvent.getArrivalTime(), arrivalEvent.getServiceTime(), served, serverTime, outTime);
     }
 
     public boolean isServed() {

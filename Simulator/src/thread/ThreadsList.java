@@ -3,6 +3,7 @@ package thread;
 import event.ArrivalEvent;
 
 /**
+ * Represents the group of threads in a server.
  *
  * @author Daniel
  */
@@ -54,20 +55,10 @@ public class ThreadsList {
         return minTime;
     }
 
-    /**
-     * The number of threads.
-     *
-     * @return The number of threads.
-     */
     public int getNumThreads() {
         return this.numThreads;
     }
 
-    /**
-     * The number of busy threads.
-     *
-     * @return The number of busy threads.
-     */
     public int busyThreads() {
         int x = 0;
 
@@ -84,10 +75,11 @@ public class ThreadsList {
      * Assigns a petition to a thread.
      *
      * @param arrivalEvent The petition to serve.
-     * @param serverTime the absolute time in which the petition enters at the system.
+     * @param serverTime the absolute time in which the petition enters at the
+     * system.
      * @throws Exception Fails if are the threads are busy.
      */
-    public void processPetition(ArrivalEvent arrivalEvent, float serverTime) throws Exception {
+    public void AssignPetition(ArrivalEvent arrivalEvent, float serverTime) throws Exception {
         if (this.busyThreads() == this.numThreads) {
             throw new Exception("Error: all the threads are busy");
         } else {
@@ -97,5 +89,13 @@ public class ThreadsList {
                 }
             }
         }
+    }
+
+    /**
+     * Finishes processing
+     */
+    public void advance() {
+        //TODO: find the thread with the next outTime, finish serving the petition
+        //for that thread and assign the next petition in the queue to it
     }
 }

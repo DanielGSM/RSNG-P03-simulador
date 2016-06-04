@@ -1,17 +1,20 @@
 package event;
 
 /**
+ * Represents an incoming petition at a certain time, which needs a certain
+ * amount of time to be served.
  *
  * @author Daniel
  */
 public class ArrivalEvent extends Event {
 
     /**
-     * The time at wich the event arrives at the system
+     * The time at which the event arrives at the system.
      */
     private final float arrivalTime;
     /**
-     * The time that the petition needs to be served
+     * The time that the petition needs to be served (the time it needs to spend
+     * in a thread).
      */
     private final float serviceTime;
 
@@ -19,12 +22,6 @@ public class ArrivalEvent extends Event {
         super(eventID);
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
-    }
-
-    public ArrivalEvent(ArrivalEvent arrivalEvent) {
-        super(arrivalEvent.getId());
-        this.arrivalTime = arrivalEvent.getArrivalTime();
-        this.serviceTime = arrivalEvent.getServiceTime();
     }
 
     public float getArrivalTime() {
