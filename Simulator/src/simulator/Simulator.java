@@ -19,12 +19,10 @@ public class Simulator {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-        //The inner clock to keep track of the simulation of the system
-        float clock = 0;
-
         //we read the arguments
         int numThreads = Integer.parseInt(args[0]);
         int queueSize = Integer.parseInt(args[1]);
+        String path = args[2];
         System.out.println("Starting the simulator with " + numThreads
                 + " threads and a queue of " + queueSize + " clients\n\n\n");
 
@@ -48,13 +46,15 @@ public class Simulator {
 
         //we read the next events while there are still some left
         ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
-        while (lastArrivalEvent != null || server.petitionsInServer() > 0) {
+        while (lastArrivalEvent != null && server.petitionsInServer() > 0) {
             server.advanceClock(lastArrivalEvent.getArrivalTime());
-            //TODO: more things here
-            if (lastArrivalEvent != null) {
-                server.petitionArrival(lastArrivalEvent);
-                lastArrivalEvent = eventsReader.nextArrivalEvent();
-            }
+            server.petitionArrival(lastArrivalEvent);
+            lastArrivalEvent = eventsReader.nextArrivalEvent();
+        }
+
+        //when there are no more incoming events, we finish processing the petitions in the server
+        while (server.petitionsInServer() > 0) {
+            server.advanceClock(server.nextOutTime());
         }
 
         //we close things
