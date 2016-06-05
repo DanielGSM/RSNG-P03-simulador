@@ -27,7 +27,7 @@ public class EventsReader {
             this.inputEventsFile = new BufferedReader(new FileReader(inputFile));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventsReader.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error; no se encuentra el fichero de eventos");
+            System.out.println("Error; the events file couldn't be found");
         }
     }
 
@@ -49,7 +49,9 @@ public class EventsReader {
             int eventID = Integer.parseInt(tokens.nextToken());
             float duration = Float.parseFloat(tokens.nextToken());
 
-            return new ArrivalEvent(eventID, time, duration);
+            ArrivalEvent arr = new ArrivalEvent(eventID, time, duration);
+            //System.out.println("EventsReader: reading event" + arr);
+            return arr;
         }
     }
 }

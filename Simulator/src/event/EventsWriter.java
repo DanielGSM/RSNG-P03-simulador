@@ -38,6 +38,7 @@ public class EventsWriter {
                 line += " " + "0";
             }
             this.outputEventsFile.write(line);
+            this.outputEventsFile.newLine();
         } catch (IOException ex) {
             Logger.getLogger(EventsWriter.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error; no se puede escribir en el archivo");

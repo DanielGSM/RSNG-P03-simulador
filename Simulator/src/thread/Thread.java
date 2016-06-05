@@ -37,7 +37,7 @@ public class Thread {
      * @throws java.lang.Exception
      */
     public void asignPetition(ArrivalEvent petition, float threadTime) throws Exception {
-        if (!this.isBusy()) {
+        if (this.isBusy()) {
             throw new Exception("Error; can't assign a petition to a busy thread");
         } else {
             this.petition = new OutputEvent(petition, true, threadTime, threadTime + petition.getServiceTime());

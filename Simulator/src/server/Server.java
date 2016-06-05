@@ -65,15 +65,18 @@ public class Server {
      * @throws java.lang.Exception
      */
     public void petitionArrival(ArrivalEvent arrivalEvent) throws Exception {
-        if (this.queue.isFull()) {
+        if (this.queue.isFull() && this.threads.busyThreads() == this.numThreads) {
             //the petition is denied
             OutputEvent outputEvent = new OutputEvent(arrivalEvent, false, null, null);
-        } else if ((this.queue.eventsInQueue() > 0) || (this.threads.busyThreads() == this.numThreads)) {
+            //TODO: quitar sout
+            System.out.println(outputEvent);
+            eventsWriter.writeEvent(outputEvent);
+        } else if (!this.queue.isFull() && this.threads.busyThreads() == this.numThreads) {
             //the petition is enqueued
             this.enqueuePetition(arrivalEvent);
         } else {
             //the petition enthers directly in a thread
-            assert !this.queue.isFull() && this.queue.eventsInQueue() == 0 && this.threads.busyThreads() < this.numThreads;
+            assert this.threads.busyThreads() < this.numThreads && this.queue.eventsInQueue() == 0;
             this.threads.AssignPetition(arrivalEvent, arrivalEvent.getArrivalTime());
         }
     }
@@ -123,10 +126,11 @@ public class Server {
     public void advanceClock(float time) {
         try {
             OutputEvent out;
-            
+
             //we process petitions that have to happen before the given time
-            while (this.petitionsInServer() > 0 && this.threads.busyThreads() > 0 && this.nextOutTime() <= time) {
+            while (this.threads.busyThreads() > 0 && this.nextOutTime() <= time) {
                 out = this.threads.advance();
+                System.out.println(out);
                 eventsWriter.writeEvent(out);
 
                 if (this.queue.eventsInQueue() > 0) {
