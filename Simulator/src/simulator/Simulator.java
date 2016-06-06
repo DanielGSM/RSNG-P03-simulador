@@ -39,8 +39,11 @@ public class Simulator {
         EventsReader eventsReader = new EventsReader(inputFilename);
 
         //the events writer is prepared
-        EventsWriter eventsWriter = new EventsWriter(
-                outputPath + File.separator + "output " + numServers + " " + numThreads + " " + queueSize + ".txt");
+        EventsWriter eventsWriter = new EventsWriter(outputPath + File.separator + "output "
+                + numServers + " "
+                + serverSelection + " "
+                + numThreads + " "
+                + queueSize + ".txt");
 
         Server[] servers = new Server[numServers];
         for (int i = 0; i < numServers; i++) {
