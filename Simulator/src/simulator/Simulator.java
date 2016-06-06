@@ -51,6 +51,7 @@ public class Simulator {
         switch (serverSelection.toLowerCase()) {
             case "rand": {
                 Random rand = new Random();
+                int x;
 
                 //we read the next events while there are still some left
                 ArrivalEvent lastArrivalEvent = eventsReader.nextArrivalEvent();
@@ -58,7 +59,10 @@ public class Simulator {
                     for (int j = 0; j < numServers; j++) {
                         servers[j].advanceClock(lastArrivalEvent.getArrivalTime());
                     }
-                    servers[rand.nextInt(numServers)].petitionArrival(lastArrivalEvent);
+
+                    x = rand.nextInt(numServers);
+                    //System.out.println("Assigning petition to server: " + x);
+                    servers[x].petitionArrival(lastArrivalEvent);
                     lastArrivalEvent = eventsReader.nextArrivalEvent();
                 }
                 break;
@@ -71,6 +75,7 @@ public class Simulator {
                     for (int j = 0; j < numServers; j++) {
                         servers[j].advanceClock(lastArrivalEvent.getArrivalTime());
                     }
+                    //System.out.println("Assigning petition to server: " + rr % numServers);
                     servers[rr++ % numServers].petitionArrival(lastArrivalEvent);
                     lastArrivalEvent = eventsReader.nextArrivalEvent();
                 }
