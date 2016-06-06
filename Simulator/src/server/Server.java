@@ -68,8 +68,6 @@ public class Server {
         if (this.queue.isFull() && this.threads.busyThreads() == this.numThreads) {
             //the petition is denied
             OutputEvent outputEvent = new OutputEvent(arrivalEvent, false, null, null);
-            //TODO: quitar sout
-            System.out.println(outputEvent);
             eventsWriter.writeEvent(outputEvent);
         } else if (!this.queue.isFull() && this.threads.busyThreads() == this.numThreads) {
             //the petition is enqueued
@@ -130,7 +128,6 @@ public class Server {
             //we process petitions that have to happen before the given time
             while (this.threads.busyThreads() > 0 && this.nextOutTime() <= time) {
                 out = this.threads.advance();
-                System.out.println(out);
                 eventsWriter.writeEvent(out);
 
                 if (this.queue.eventsInQueue() > 0) {
