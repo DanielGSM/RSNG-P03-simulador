@@ -28,16 +28,6 @@ public class Simulator {
         System.out.println("Starting the simulator with " + numThreads
                 + " threads and a queue of " + queueSize + " clients\n\n\n");
 
-        /*
-        //We generate the events file
-        Process p = Runtime.getRuntime().exec("python .." + File.separator + ".." + File.separator + "Generator" + File.separator + "gen.py "
-                + numServers + " "
-                + numThreads + " "
-                + queueSize + " "
-                + path
-                + " > inputEvents.txt"
-        );
-         */
         //the events reader is prepared
         EventsReader eventsReader = new EventsReader(inputFilename);
 
