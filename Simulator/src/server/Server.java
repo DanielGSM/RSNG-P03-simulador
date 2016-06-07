@@ -112,7 +112,7 @@ public class Server {
      * @return
      * @throws java.lang.Exception when there are no busy threads
      */
-    public float nextOutTime() throws Exception {
+    public double nextOutTime() throws Exception {
         return this.threads.nextOutTime();
     }
 
@@ -121,7 +121,7 @@ public class Server {
      *
      * @param time The time desired for the server to advance to.
      */
-    public void advanceClock(float time) {
+    public void advanceClock(double time) {
         try {
             OutputEvent out;
 

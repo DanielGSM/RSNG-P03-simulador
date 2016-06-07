@@ -13,17 +13,17 @@ public class OutputEvent extends ArrivalEvent {
     /**
      * Absolute time in which the petition was asigned to a thread
      */
-    private final Float threadTime;
+    private final Double threadTime;
     /**
      * Absolute time in which the petition ended (was finished serving)
      */
-    private final Float outTime;
+    private final Double outTime;
 
     /**
      * Served petitions must have valid values for threadTime and outTime.
      * Rejected petitions must have those values at null.
      */
-    public OutputEvent(int eventID, float arrivalTime, float serviceTime, boolean served, Float threadTime, Float outTime) {
+    public OutputEvent(int eventID, double arrivalTime, double serviceTime, boolean served, Double threadTime, Double outTime) {
         super(eventID, arrivalTime, serviceTime);
 
         this.served = served;
@@ -45,7 +45,7 @@ public class OutputEvent extends ArrivalEvent {
      * Served petitions must have valid values for threadTime and outTime.
      * Rejected petitions must have those values at null.
      */
-    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, Float threadTime, Float outTime) {
+    public OutputEvent(ArrivalEvent arrivalEvent, boolean served, Double threadTime, Double outTime) {
         this(arrivalEvent.getId(), arrivalEvent.getArrivalTime(), arrivalEvent.getServiceTime(), served, threadTime, outTime);
     }
 
@@ -53,11 +53,11 @@ public class OutputEvent extends ArrivalEvent {
         return served;
     }
 
-    public float getThreadTime() {
+    public double getThreadTime() {
         return threadTime;
     }
 
-    public float getOutTime() {
+    public double getOutTime() {
         return outTime;
     }
 

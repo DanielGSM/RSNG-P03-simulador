@@ -10,17 +10,17 @@ import java.util.TreeMap;
  */
 public class ServerQueue {
 
-    private final TreeMap<Float, ArrivalEvent> list;
+    private final TreeMap<Double, ArrivalEvent> list;
     private static int SIZE;
 
     public ServerQueue(int size) {
-        this.list = new TreeMap<Float, ArrivalEvent>();
+        this.list = new TreeMap<Double, ArrivalEvent>();
         ServerQueue.SIZE = size;
     }
 
     public void addEvent(ArrivalEvent ev) throws Exception {
         if (!this.isFull()) {
-            Float key = ev.getArrivalTime();
+            Double key = ev.getArrivalTime();
             list.put(key, ev);
         } else {
             throw new Exception("Error: la cola está llena");
@@ -41,30 +41,30 @@ public class ServerQueue {
     }
 
     public void delEvent(ArrivalEvent ev) {
-        Float key = ev.getArrivalTime();
+        Double key = ev.getArrivalTime();
         list.remove(key);
     }
 
-    public void delEvent(Float key) {
+    public void delEvent(Double key) {
         list.remove(key);
     }
 
-    public void delEvent(float key) {
+    public void delEvent(double key) {
         list.remove(key);
     }
 
     public ArrivalEvent popNextEvent() {
-        Float key = list.firstKey();
+        Double key = list.firstKey();
         ArrivalEvent e = list.get(key);
         delEvent(key);
         return e;
     }
 
-    public ArrivalEvent getEvent(Float key) {
+    public ArrivalEvent getEvent(Double key) {
         return list.get(key);
     }
 
-    public ArrivalEvent getEvent(float key) {
+    public ArrivalEvent getEvent(double key) {
         return list.get(key);
     }
 

@@ -11,24 +11,24 @@ public class ArrivalEvent extends Event {
     /**
      * The time at which the event arrives at the system.
      */
-    private final float arrivalTime;
+    private final double arrivalTime;
     /**
      * The time that the petition needs to be served (the time it needs to spend
      * in a thread).
      */
-    private final float serviceTime;
+    private final double serviceTime;
 
-    public ArrivalEvent(int eventID, float arrivalTime, float serviceTime) {
+    public ArrivalEvent(int eventID, double arrivalTime, double serviceTime) {
         super(eventID);
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
     }
 
-    public float getArrivalTime() {
+    public double getArrivalTime() {
         return arrivalTime;
     }
 
-    public float getServiceTime() {
+    public double getServiceTime() {
         return serviceTime;
     }
 

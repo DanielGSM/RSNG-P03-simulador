@@ -45,7 +45,7 @@ public class ThreadsList {
      * @return ^That thing from above.
      * @throws java.lang.Exception when all the threads are idle.
      */
-    public float nextOutTime() throws Exception {
+    public double nextOutTime() throws Exception {
         if (this.busyThreads() == 0) {
             throw new Exception("Error: There is not a next output time because there are no busy thread");
         }
@@ -57,7 +57,7 @@ public class ThreadsList {
         }
 
         //we set the first minimum time found
-        float minTime = this.threads[i].nextIdleTime();
+        double minTime = this.threads[i].nextIdleTime();
         i++;
 
         //we search in the rest of the busy threads lesser times
@@ -95,7 +95,7 @@ public class ThreadsList {
      * system.
      * @throws Exception Fails if are the threads are busy.
      */
-    public void AssignPetition(ArrivalEvent arrivalEvent, float threadTime) throws Exception {
+    public void AssignPetition(ArrivalEvent arrivalEvent, double threadTime) throws Exception {
         if (this.busyThreads() == this.numThreads) {
             throw new Exception("Error: all the threads are busy");
         } else {
@@ -118,7 +118,7 @@ public class ThreadsList {
     public OutputEvent advance() throws Exception {
         //TODO: find the thread with the next outTime, finish serving the petition
         //for that thread and assign the next petition in the queue to it
-        float time = this.nextOutTime();
+        double time = this.nextOutTime();
 
         OutputEvent out = null;
         for (int i = 0; i < this.numThreads; i++) {

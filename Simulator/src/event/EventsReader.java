@@ -45,9 +45,9 @@ public class EventsReader {
             return null;
         } else {
             StringTokenizer tokens = new StringTokenizer(line);
-            float time = Float.parseFloat(tokens.nextToken());
+            double time = Double.parseDouble(tokens.nextToken());
             int eventID = Integer.parseInt(tokens.nextToken());
-            float duration = Float.parseFloat(tokens.nextToken());
+            double duration = Double.parseDouble(tokens.nextToken());
 
             ArrivalEvent arr = new ArrivalEvent(eventID, time, duration);
             //System.out.println("EventsReader: reading event" + arr);
