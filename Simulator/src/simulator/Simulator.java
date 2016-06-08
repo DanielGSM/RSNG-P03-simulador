@@ -27,6 +27,7 @@ public class Simulator {
         int queueSize = Integer.parseInt(args[3]); //the queue size of each server
         String inputFilename = args[4]; //the filename (with path) of the input events file
         String outputPath = args[5]; //the path (without filename) for the output events file
+        int offset = Integer.parseInt(args[6]); //The first x petitions won't be written in the output file (used to avoid outliers until the system stabilizes)
 
         if (numServers < 1 || numThreads < 1 || queueSize < 0 || inputFilename == null || outputPath == null) {
             System.out.println("Error; at least one parameter is incorrect");
@@ -43,7 +44,8 @@ public class Simulator {
                 + numServers + " "
                 + serverSelection + " "
                 + numThreads + " "
-                + queueSize + ".txt");
+                + queueSize + ".txt",
+        offset);
 
         Server[] servers = new Server[numServers];
         for (int i = 0; i < numServers; i++) {
